@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Aisyah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: #000;
+      color: #f8a5c2;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      overflow-y: auto;
+      z-index: 1;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    .slide-content {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    /* ✅ Tambahan agar heart di tengah */
+    #slide1 .slide-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .heart {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      margin-bottom: 20px;
+      cursor: pointer;
+      animation: heartbeat 2s infinite ease-in-out;
+      user-select: none;
+      transform: rotate(-45deg);
+      background: radial-gradient(circle at 30% 30%, #ff99cc, #ff66b2);
+      box-shadow: 0 0 15px #ff66b2, 0 0 25px #ff99cc;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at 30% 30%, #ff99cc, #ff66b2);
+      border-radius: 50%;
+      box-shadow: inset 0 0 10px #fff5f9;
+    }
+
+    .heart::before {
+      top: -60px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 60px;
+      top: 0;
+    }
+
+
+    h1 {
+      font-size: 3rem;
+      font-family: 'Pacifico', cursive;
+      margin: 0;
+      color: #fff;
+      text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+      animation: pulse 2s infinite;
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+
+        50% {
+          transform: scale(1.05);
+        }
+
+        100% {
+          transform: scale(1);
+        }
+      }
+
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-family: 'Pacifico', cursive;
+      color: #ffb6c1;
+      text-shadow: 1px 1px 3px #ff69b4;
+      animation: fadeInUp 1.5s ease-out;
+    }
+
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .quote {
+      font-style: italic;
+      color: #a45ca1;
+    }
+
+    .signature {
+      position: absolute;
+      bottom: 40px;
+      right: 50px;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.4rem;
+      color: #ff99cc;
+      opacity: 0.85;
+      text-shadow: 1px 1px 3px #ff69b4;
+      transform: rotate(-2deg);
+    }
+
+
+    .nav-buttons {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      z-index: 9999;
+    }
+
+    button {
+      background: linear-gradient(to right, #ff66cc, #cc99ff);
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(156, 39, 176, 0.7);
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #7b1fa2;
+    }
+
+    button:disabled {
+      background: #d1a3e8;
+    }
+
+    .falling-text {
+      position: fixed;
+      top: -2rem;
+      color: #f8a5c2;
+      font-weight: bold;
+      font-size: 1.1rem;
+      animation: fall 10s linear infinite;
+      user-select: none;
+      opacity: 0.6;
+      z-index: 0;
+      white-space: pre-wrap;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-5vh);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .small-heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: #ff99cc;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: floatUp 2s forwards;
+      pointer-events: none;
+      filter: drop-shadow(0 0 2px #e60073);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-150px) scale(0);
+        opacity: 0;
+      }
+    }
+
+    .message {
+      position: fixed;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #a60073;
+      animation: messageFloat 2s ease-out forwards;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes messageFloat {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+    }
+
+    .star-confetti {
+      position: fixed;
+      top: -30px;
+      width: 15px;
+      height: 15px;
+      background: gold;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%,
+          68% 57%, 79% 91%, 50% 70%,
+          21% 91%, 32% 57%, 2% 35%,
+          39% 35%);
+      opacity: 0.85;
+      pointer-events: none;
+      animation-name: fallStar;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fallStar {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      p,
+      .quote {
+        font-size: 1rem;
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    img {
+      border: 2px solid #ffb6c1;
+      box-shadow: 0 4px 8px rgba(255, 182, 193, 0.3);
+      border-radius: 20px;
+    }
+
+    img:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
+      box-shadow: 0 0 10px #ffb6c1;
+    }
+
+    .animate-in {
+      animation: zoomIn 1s ease;
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    #countdown {
+      color: #ffd1dc;
+      text-shadow: 0 0 5px #ff69b4;
+      animation: flashText 2s infinite alternate;
+    }
+
+    @keyframes flashText {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0.7;
+      }
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background-color: #ff66cc !important;
+    }
+
+    .animate-out {
+      animation: fadeOut 0.8s forwards;
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+    }
+
+    .cake-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInUp 2s ease-out;
+    }
+
+    .cake-circle {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      background: #ffb6c1;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(255, 182, 193, 0.5);
+      margin-top: 40px;
+    }
+
+    .cake-top {
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      height: 20px;
+      background: #ffc0cb;
+      border-top-left-radius: 70px;
+      border-top-right-radius: 70px;
+    }
+
+    .decoration {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 15px;
+      background: repeating-linear-gradient(45deg,
+          #fff,
+          #fff 5px,
+          #f06292 5px,
+          #f06292 10px);
+      border-radius: 10px;
+    }
+
+    .candle {
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 30px;
+      background: #fff;
+      border-radius: 5px;
+    }
+
+    .flame {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: gold;
+      border-radius: 50%;
+      animation: flicker 1s infinite;
+      box-shadow: 0 0 10px gold;
+    }
+
+    @keyframes flicker {
+
+      0%,
+      100% {
+        transform: scale(1) translateX(-50%);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.3) translateX(-50%);
+        opacity: 0.6;
+      }
+    }
+
+    .wish-text {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: #fff;
+      margin-top: 40px;
+      animation: pulse 2s infinite;
+      text-shadow: 0 0 10px #ff69b4;
+    }
+
+    .birthday-flash {
+      color: #ff69b4;
+      font-size: 2.5rem;
+      margin-top: 20px;
+      text-shadow: 0 0 5px #ff69b4;
+      animation: flashBirthday 1s infinite alternate;
+    }
+
+    @keyframes flashBirthday {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0.6;
+        transform: scale(1.05);
+      }
+    }
+
+    .photo-fan {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .photo-fan img {
+      position: absolute;
+      width: 160px;
+      height: auto;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
+    }
+
+    .photo-fan img:nth-child(1) {
+      transform: rotate(-20deg) translateX(-180px);
+      z-index: 1;
+    }
+    .photo-fan img:nth-child(2) {
+      transform: rotate(-10deg) translateX(-90px);
+      z-index: 2;
+    }
+    .photo-fan img:nth-child(3) {
+      transform: rotate(0deg) translateX(0);
+      z-index: 3;
+    }
+    .photo-fan img:nth-child(4) {
+      transform: rotate(10deg) translateX(90px);
+      z-index: 2;
+    }
+    .photo-fan img:nth-child(5) {
+      transform: rotate(20deg) translateX(180px);
+      z-index: 1;
+    }
+
+    .photo-fan img:hover {
+      transform: scale(1.1) rotate(0deg) !important;
+      z-index: 5 !important;
+      box-shadow: 0 0 15px #ffb6c1;
+    }
+
+    .birthday-message {
+      color: #ffe6f0; /* pink muda, manis & lembut */
+      text-shadow: 0 0 3px #ff99cc, 0 0 5px #ff69b4;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      text-align: left;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.2);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Slide 0 - Login -->
+  <div class="slide active" id="slide0">
+    <div class="slide-content animate-in">
+      <h2>Login Dulu Ya Sayang 💖</h2>
+      <input type="text" id="username" placeholder="Username"
+        style="padding:10px; font-size: 1rem; border-radius:10px; margin-bottom:10px; width: 200px;"><br>
+      <input type="password" id="password" placeholder="Password"
+        style="padding:10px; font-size: 1rem; border-radius:10px; width: 200px;" />
+      <br>
+      <label style="font-size: 0.9rem; color: #ccc;">
+        <input type="checkbox" id="showPass" onclick="togglePassword()" />
+        Tampilkan password
+      </label>
+      <br><br>
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+
+  <!-- Slide 1 -->
+  <div class="slide" id="slide1">
+    <div class="slide-content">
+      <div id="mainHeart" style="cursor: pointer;">
+        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#ff99cc; stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#ffe6f0; stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <path d="M60 110s-45-28-45-60c0-15 12-28 28-28 10 0 17 5 17 5s7-5 17-5c16 0 28 13 28 28 0 32-45 60-45 60z"
+            fill="url(#grad1)" stroke="#ff66cc" stroke-width="3" />
+        </svg>
+      </div>
+      <h1>Happy Birthday To You</h1>
+      <p class="quote">"Semoga hari-harimu selalu penuh warna dan kebahagiaan!"</p>
+      <p class="quote">"Jangan lupa dipencet love-nya bisa keluar kata-kata manis.."</p>
+    </div>
+  </div>
+
+  <!-- Slide 2 - Countdown -->
+  <div class="slide" id="slide2">
+    <div class="slide-content animate-in">
+      <h2 id="countdown-title">Moment in Time Your Birthday</h2>
+      <div id="countdown" style="font-size: 2.5rem; margin-top: 20px;"></div>
+      <h1 id="birthdayMessage" style="display: none; color: #ff69b4; font-size: 3rem; margin-top: 30px;">
+        HAPPY BIRTHDAY SAYANGG 💖
+      </h1>
+      <audio id="birthdaySong" src="https://files.catbox.moe/lpfdvo.mp3" preload="auto"></audio>
+      <button onclick="document.getElementById('birthdaySong').play()" style="margin-top: 20px;">🔊 Test Birthday Song</button>
+    </div>
+  </div>
+  
+  <!-- Slide 3 - Kalender Hari Spesial -->
+  <div class="slide" id="slide3">
+    <div class="slide-content animate-in">
+      <h2 style="margin-bottom: 20px;">Hari Spesial Kamu 🗓️</h2>
+      <img src="https://i.postimg.cc/wBznq10h/Whats-App-Image-2025-07-17-at-14-07-54-377bac9b.jpg" alt="Kalender Ulang Tahun" style="max-width: 90%; border-radius: 15px; box-shadow: 0 4px 15px rgba(255,182,193,0.5);">
+      <p style="margin-top: 20px; font-size: 1.2rem; color: #ffcce6;">
+        Tanggal <b>30 Juli</b> ditandai karena itu hari kelahiranmu... dan bagiku, hari paling indah dalam setahun. 💖
+      </p>
+    </div>
+  </div>
+
+
+  <!-- Slide 4 -->
+  <div class="slide" id="slide4">
+    <div class="slide-content">
+      <h2>Ucapan Spesialmu Di Sini!</h2>
+      <p class="birthday-message">
+        Happy Birthday sayanggkuuuu 🤍🤍🫶🏻🫶🏻<br><br>
+
+        Semoga menjadi pribadi yang lebihh baikk yaa sayangg. Selamat bertambah usia juga, menjadi yang ke-19 tahun 🤭. Walaupun umur kamu 19 tahun, tapi ingat… kamu masih bocil 🤭<br><br>
+
+        Semoga dipanjangkan umurnya, dilancarkan rezekinya, dan dikabulkan semua doa-doanya. Semangatt truss yaa cantikkkkk untuk mencapaiii keinginan dan mimpi-mimpi kamuuu. Capee ndapapaaa, itu wajar dan manusiawi, tapii ndaa bolehh nyerah. Akuuu akan bantuu kamuu semampuu akuu yaaa cantikkk.<br><br>
+
+        Selaluuu nurutttt sama orang tua yangg cantikkk, ndaa bolehh bandell, ndaa bolehh ngelawan orang tuaa. Mau sekesal dan semarah apapun, jangann sampee mengeluarkan kata-kata yang menyakiti ayah sama mamah kamuuu. Karena yang kamuu lakukan ituu pastiii adaaa doa ayah sama mamah kamuuu biar ndaa terjadii hal-hal yang ndaa diinginkan sayanggkuuuu.<br><br>
+
+        Ibadahnyaa ugaa jangann lupaa sayangg, harusss lebih baikk darii sebelumnyaaa. Ayah sama mamah kamuu pastii senengg kaloo anaknyaa rajin mengajii, sholat, berbuat hal baikkk pokoknyaaa.<br><br>
+
+        Semangatttt buatt kamuuuuu. Jangann pernah males-malesan soal kerjaa, jangann pernah takutt atauu maluuu dalam melakukan sesuatuuu kaloo ituu baikk. Kalau yangg tidakk baikk, ditinggalkan saajaaaa. Terkadang kitaaa harusss berani melakukan sesuatuu yang kitaa nda taau kedepannya jadi gimanaaa. Jangann takut apapunn yaa sayanggg.<br><br>
+
+        Jangann pernahh merasaa sendirii. Ingatt ada akuu disinii yangggg siapp membantuu kamuu semampuu akuu sayangg.<br><br>
+
+        <em>Here’s to your 19th year — filled with dreams, courage, and love. I’m so proud of you, and I can’t wait to see all the beautiful things you’ll become. With you, always. 🤍🫶🏻</em><br><br>
+
+        Semoga hari-harimu penuh cinta dan tawa.
+      </p>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- Slide 5 - Surat Cinta Rahasia -->
+  <div class="slide" id="slide5">
+    <div class="slide-content">
+      <h2>Buka Surat Rahasia dari Aku ✉️</h2>
+      <p id="secretLetter"
+        style="font-style: italic; white-space: pre-wrap; color: #ffcce6; font-size: 1.2rem; margin-top: 20px;"></p>
+      <!-- Ini tanda tangan, taruh tepat di bawah surat -->
+      <p id="signature" style="
+        display: none;
+        text-align: right;
+        font-family: 'Pacifico', cursive;
+        font-size: 1.3rem;
+        color: #ffd1dc;
+        margin-top: 20px;
+        margin-right: 10px;
+        text-shadow: 1px 1px 3px #ff69b4;
+      ">
+        - dari Azis ✍️
+      </p>
+
+      <button onclick="startTyping()">💌 Buka Suratnya</button>
+    </div>
+  </div>
+
+  <!-- Slide 6 -->
+  <div class="slide" id="slide6">
+    <div class="slide-content">
+      <h2>Your Favorite Music - Raim Laode | Komang</h2>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <img src="https://i.pinimg.com/736x/dd/d3/ac/ddd3ac33afac5365ddfbf9242cb7b130.jpg"
+          style="width: 250px; height: auto; border-radius: 20px; object-fit: cover;">
+        <button id="musicToggle">Play Music</button>
+      </div>
+      <audio id="birthdayMusic" preload="auto" src="https://media.vocaroo.com/mp3/1cI0sDd39lRJ" loop></audio>
+    </div>
+  </div>
+
+  <!-- Slide 7 -->
+  <div class="slide" id="slide7">
+    <div class="slide-content">
+      <h2 style="margin-bottom: 30px;">Your Cutest & Most Stunning Moments 📸</h2>
+      <div class="photo-fan short">
+        <img src="https://i.postimg.cc/ZBtdy3bJ/MY-LOVE3.jpg">
+        <img src="https://i.postimg.cc/DJrbQZ0L/MY-LOVE4.jpg">
+        <img src="https://i.postimg.cc/GTbTXCTN/MY-LOVE5.jpg">
+        <img src="https://i.postimg.cc/k6QqBPHj/MY-LOVE.jpg">
+        <img src="https://i.postimg.cc/N2QYXPqQ/MY-LOVE2.jpg">
+      </div>
+      <p style="margin-top: 200px; font-size: 1.2rem; color: #ffcce6;">
+        Note: Masih banyak foto lucu & cantik kamu, tapi ini dulu ya karna terlalu banyakk hihi...
+      </p>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- Slide 8 -->
+  <div class="slide" id="slide8">
+    <div class="slide-content">
+      <h2>Every Moment Feels Better with You</h2>
+        <div class="photo-fan">
+        <img src="https://i.postimg.cc/zvXb3Dc2/Whats-App-Image-2025-07-15-at-08-01-06-b8bdc37f.jpg"
+          style="width: 180px;">
+        <img src="https://i.imgur.com/sg6HjjR.jpeg"
+          style="width: 180px;">
+        <img src="https://i.postimg.cc/sGpd4QcG/Whats-App-Image-2025-07-15-at-08-01-06-d22215fd.jpg"
+          style="width: 180px;">
+        <img src="https://i.postimg.cc/w3JppZpx/Whats-App-Image-2025-07-15-at-08-01-07-347f9dcb.jpg"
+          style="width: 180px;">
+        <img src="https://i.postimg.cc/JhrWfyDF/Whats-App-Image-2025-07-15-at-08-07-38-41a4f064.jpg"
+          style="width: 180px;">
+      </div>
+      <p style="margin-top: 30px;">I LOVE YOU SO MUCH💖</p>
+    </div>
+  </div>
+
+
+  <!-- Slide 9 - Magic Mirror -->
+  <div class="slide" id="slide9">
+    <div class="slide-content">
+      <h2>Si Cantik yang Bikin Dunia Berwarna 💖</h2>
+      <div style="position: relative;">
+        <img id="blurryImage" src="https://i.postimg.cc/KzB9npSZ/MY-LOVE6.jpg"
+          style="width: 300px; border-radius: 20px; filter: blur(10px); transition: filter 2s ease;" />
+        <div id="blurText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+          font-size: 1.5rem; color: white; text-shadow: 0 0 5px #ff69b4;">
+          Hmm... Siapa ya ini? 🤔
+        </div>
+      </div>
+
+      <!-- Paragraf & tombol HARUS di dalam slide-content -->
+      <p id="afterRevealText" style="display: none; color: #ffcce6; font-style: italic; margin-top: 20px;">
+        Sekarang makin jelas ya... emang secantik itu kamu 🥰
+      </p>
+      <button onclick="revealImage()" style="margin-top: 20px;">✨ Klik Untuk Melihat Lebih Jelas</button>
+    </div>
+  </div>
+
+
+
+
+  <!-- Slide 10 - Ulang Tahun Celebration -->
+  <div class="slide" id="slide10">
+    <div class="slide-content">
+      <div class="cake-container">
+        <div class="cake-circle">
+          <div class="cake-top"></div>
+          <div class="decoration"></div>
+          <div class="candle"></div>
+          <div class="flame"></div>
+        </div>
+        <h2 class="wish-text">Make a wish... 🎂</h2>
+        <h1 class="birthday-flash">HAPPY BIRTHDAY 🎉</h1>
+      </div>
+      <audio id="finalBirthdaySong"
+        src="https://voca.ro/15XOBaBnW5DE" preload="auto"></audio>
+    </div>
+  </div>
+
+
+  <div class="nav-buttons" id="navButtons">
+    <button id="prevBtn" disabled>Previous</button>
+    <button id="nextBtn">Next</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function showSlide(index) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === slides.length - 1;
+
+      const nav = document.getElementById('navButtons');
+      if (index === 0) {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+      }
+
+      current = index;
+    }
+
+    prevBtn.onclick = () => {if (current > 0) showSlide(--current);}
+    nextBtn.onclick = () => {if (current < slides.length - 1) showSlide(++current);}
+
+    // Floating hearts
+    const heart = document.getElementById('mainHeart');
+    const messages = ["You're Amazing!", "Stay Happy!", "You Shine!", "So Loved!", "Forever Beautiful!", "Keep Smiling!", "Happy Birthday!", "You Are Magic!"];
+
+    heart.onclick = (e) => {
+      for (let i = 0; i < 5; i++) {
+        const small = document.createElement('div');
+        small.className = 'small-heart';
+        small.style.left = e.clientX + (Math.random() * 60 - 30) + 'px';
+        small.style.top = e.clientY + (Math.random() * 60 - 30) + 'px';
+        document.body.appendChild(small);
+        setTimeout(() => small.remove(), 2000);
+      }
+      const msg = document.createElement('div');
+      msg.className = 'message';
+      msg.textContent = messages[Math.floor(Math.random() * messages.length)];
+      msg.style.left = e.clientX + 'px';
+      msg.style.top = e.clientY + 'px';
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 2000);
+    };
+
+    // Star confetti
+    setInterval(() => {
+      const star = document.createElement('div');
+      star.className = 'star-confetti';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = 4 + Math.random() * 4 + 's';
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 9000);
+    }, 400);
+
+    // Music toggle
+    const audio = document.getElementById('birthdayMusic');
+    const musicBtn = document.getElementById('musicToggle');
+    let playing = false;
+    musicBtn.onclick = () => {
+      if (playing) {
+        audio.pause();
+        musicBtn.textContent = 'Play Music';
+      } else {
+        audio.play();
+        musicBtn.textContent = 'Pause Music';
+      }
+      playing = !playing;
+    };
+
+  </script>
+  <script>
+    const fallingMessages = [
+      "Happy Birthday 💖",
+      "Selamat Ulang Tahun 🎉",
+      "Love You Sayang 💝",
+      "Stay Happy 😘",
+      "Semoga Bahagia Selalu 💐",
+      "Cantiknyaaaaa 🥰",
+      "Kamu Spesial 💫",
+      "Best Girl Ever 🌸"
+    ];
+
+    function createFallingText() {
+      const text = document.createElement('div');
+      text.className = 'falling-text';
+      text.textContent = fallingMessages[Math.floor(Math.random() * fallingMessages.length)];
+      text.style.left = `${Math.random() * 100}vw`;
+      text.style.fontSize = `${Math.random() * 10 + 14}px`;
+      document.body.appendChild(text);
+      setTimeout(() => text.remove(), 5000);
+    }
+
+    setInterval(createFallingText, 300);
+  </script>
+  </script>
+  <script>
+    const words = [
+      "H\nA\nP\nP\nY\n \nB\nI\nR\nT\nH\nD\nA\nY",
+      "L\nO\nV\nE\n \nY\nO\nU",
+      "D\nE\nA\nR\n \nA\nI\nS\nY\nA\nH",
+      "S\nA\nY\nA\nN\nG",
+      "💖",
+      "🎂",
+    ];
+
+    function createFallingText() {
+      const text = document.createElement("div");
+      text.classList.add("falling-text");
+      text.textContent = words[Math.floor(Math.random() * words.length)];
+      text.style.left = Math.random() * 100 + "vw";
+      text.style.animationDuration = (5 + Math.random() * 5) + "s";
+      text.style.fontSize = (1 + Math.random() * 1.5) + "rem";
+      document.body.appendChild(text);
+      setTimeout(() => text.remove(), 11000);
+    }
+    setInterval(createFallingText, 300);
+  </script>
+  <script>
+    let userHasInteracted = false;
+    document.addEventListener("click", () => {
+      userHasInteracted = true;
+    });
+
+    const countdownElement = document.getElementById("countdown");
+    const messageElement = document.getElementById("birthdayMessage");
+    const birthdaySong = document.getElementById("birthdaySong");
+
+    function playBirthdaySong() {
+      birthdaySong.play().catch(e => {
+        console.log("🎵 Audio autoplay blocked:", e.message);
+      });
+    }
+
+    function updateCountdown() {
+      const targetDate = new Date("2025-07-30T00:00:00");
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        countdownElement.style.display = "none";
+        messageElement.style.display = "block";
+
+        if (userHasInteracted) {
+          playBirthdaySong();
+        } 
+        else {
+          console.log("⚠️ User belum interaksi. Audio autoplay diblokir.");
+        }
+
+      } 
+      else {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        countdownElement.textContent = `${days} DAYS ${hours} HOURS ${minutes} MINS ${seconds} SECS`;
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+  <script>
+    const birthdaySong = document.getElementById("birthdaySong");
+    const testSongBtn = document.getElementById("testSongBtn");
+    let isPlaying = false;
+
+    function toggleBirthdaySong() {
+      if (isPlaying) {
+        birthdaySong.pause();
+        birthdaySong.currentTime = 0;
+        testSongBtn.textContent = "🔊 Play Birthday Song";
+      } else {
+        birthdaySong.play().catch(e => {
+          alert("Audio gagal diputar. Klik sekali di mana saja pada halaman, lalu coba lagi.");
+          console.error(e);
+        });
+        testSongBtn.textContent = "🔇 Stop Birthday Song";
+      }
+
+      isPlaying = !isPlaying;
+    }
+  </script>
+
+  <script>
+    function togglePassword() {
+      const passInput = document.getElementById("password");
+      passInput.type = passInput.type === "password" ? "text" : "password";
+    }
+
+    function login() {
+      const user = document.getElementById("username").value.trim().toLowerCase();
+      const pass = document.getElementById("password").value;
+
+      if (user === "aisyah" && pass === "aisyahcantik123") {
+        document.getElementById("slide0").classList.add("animate-out");
+
+        setTimeout(() => {
+          showSlide(1); // ke Slide 1
+        }, 800);
+      } else {
+        alert("Username atau password salah 😢");
+      }
+    }
+
+    document.addEventListener("keydown", function (e) {
+
+      if (e.key === "Enter" && current === 0) {
+        login();
+      }
+    });
+
+    showSlide(0); // Tampilkan slide login saat awal
+  </script>
+  <script>
+    const letterText = `Hai cewekuuu yang paling cantik 💖
+
+  Hari ini aku cuma ingin bilang betapa bersyukurnya aku punya kamu.
+
+  Setiap tawa kamu, setiap cerita kamu, semuanya selalu bisa bikin hariku lebih baik.
+
+  Makasih udah jadi versi terbaik dari dirimu, buat aku.
+
+  Selamat ulang tahun ya, sayangku. Semoga semua mimpimu jadi nyata. Dan semoga aku bisa terus nemenin kamu, selamanya 🥺❤️
+
+  I love you.`;
+
+    let letterIndex = 0;
+
+    function startTyping() {
+      const letter = document.getElementById("secretLetter");
+      const signature = document.getElementById("signature");
+      letter.innerText = "";         // reset isi surat
+      signature.style.display = "none"; // sembunyikan tanda tangan
+      letterIndex = 0;
+
+      function type() {
+        if (letterIndex < letterText.length) {
+          letter.innerText += letterText.charAt(letterIndex);
+          letterIndex++;
+          setTimeout(type, 40);
+        } else {
+          signature.style.display = "block"; // munculkan tanda tangan
+        }
+      }
+
+      type();
+    }
+  </script>
+  <script>
+    function revealImage() {
+      const img = document.getElementById("blurryImage");
+      const text = document.getElementById("blurText");
+      const afterText = document.getElementById("afterRevealText");
+      img.style.filter = "blur(0px)";
+      text.style.display = "none";
+      afterText.style.display = "block";
+    }
+  </script>
+
+  <script>
+    function checkSlideForBirthdayCake() {
+      const birthdayAudio = document.getElementById("finalBirthdaySong");
+      if (current === 10) {
+        birthdayAudio.play();
+        launchConfetti();
+      } else {
+        birthdayAudio.pause();
+        birthdayAudio.currentTime = 0;
+      }
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'star-confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.background = ['gold', 'hotpink', 'skyblue'][Math.floor(Math.random() * 3)];
+        confetti.style.animationDuration = 4 + Math.random() * 3 + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 8000);
+      }
+    }
+
+    nextBtn.addEventListener("click", checkSlideForBirthdayCake);
+    prevBtn.addEventListener("click", checkSlideForBirthdayCake);
+  </script>
+  </script>
+
+</body>
+
+</html>
